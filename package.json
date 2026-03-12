@@ -1,7 +1,7 @@
 {
   "name": "mindstage-sdk",
   "version": "1.0.0",
-  "description": "Core mind map rendering engine - layout, render, and export functionality",
+  "description": "The professional, lightweight core mind map engine that powers MindStage.app",
   "main": "dist/index.js",
   "browser": "dist/mindstage-sdk.js",
   "unpkg": "dist/mindstage-sdk.min.js",
