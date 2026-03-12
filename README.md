@@ -14,6 +14,10 @@
   <a href="http://makeapullrequest.com"><img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome"></a>
 </p>
 
+<a href="https://www.mindstage.app" target="_blank">
+  <img src="https://www.mindstage.app/_next/image?url=%2Fimages%2Flanding%2Feditor_preview.webp&w=3840&q=75" alt="MindStage SDK" style="width: 100%; height: auto;">
+</a>
+
 ---
 
 ## 🌟 Overview
@@ -22,8 +26,6 @@
 
 Whether you're building a web-based editor, a preview tool, or a complex visualization, MindStage SDK provides the battle-tested foundation you need.
 
-
-![MindStage SDK](https://www.mindstage.app/_next/image?url=%2Fimages%2Flanding%2Feditor_preview.webp&w=3840&q=75)
 
 ---
 
