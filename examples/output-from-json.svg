@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg
+  xmlns="http://www.w3.org/2000/svg"
+  width="700.8"
+  height="284"
+  viewBox="0 0 700.8 284"
+  style="font-family: sans-serif;"
+>
+  <rect x="0" y="0" width="700.8" height="284" fill="#ffffff" />
+  <g transform="translate(258, 142) scale(1)">
+  <path
+            d="M 50 0 C 74 0, 86 -42, 110 -42"
+            fill="none"
+            stroke="#d0d1fb"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+  <path
+            d="M 218 -42 C 242 -42, 254 -79.5, 278 -79.5"
+            fill="none"
+            stroke="#d0d1fb"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+  <path
+            d="M 218 -42 C 242 -42, 254 -4.5, 278 -4.5"
+            fill="none"
+            stroke="#dcd0fb"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+  <path
+            d="M 50 0 C 74 0, 86 75, 110 75"
+            fill="none"
+            stroke="#fad1e5"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+  <path
+            d="M 218 75 C 242 75, 254 75, 278 75"
+            fill="none"
+            stroke="#fad1e5"
+            stroke-width="2"
+            stroke-linecap="round"
+          />
+  <path
+            d="M -50 0 C -74 0, -86 0, -110 0"
+            fill="none"
+            stroke="#ddcffc"
+            stroke-width="2.5"
+            stroke-linecap="round"
+          />
+  <g class="node-group" data-id="node_1"><rect
+      x="-50"
+      y="-34.5"
+      width="100"
+      height="69"
+      rx="6"
+      style="fill: #ffffff; stroke: #e0e0e0; stroke-width: 2"
+    /><text
+      x="0"
+      y="0"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="30"
+      font-weight="bold"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Root</text></g>
+  <g class="node-group" data-id="node_1773326133144_6t9y01p4h"><rect
+      x="110"
+      y="-69"
+      width="108"
+      height="54"
+      rx="4"
+      style="fill: #6366f1; stroke: #d0d1fb; stroke-width: 2"
+    /><text
+      x="164"
+      y="-42"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="20"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Topic 1</text></g>
+  <g class="node-group" data-id="node_1773326133144_qwq9z4tnd"><rect
+      x="278"
+      y="-102"
+      width="124.8"
+      height="45"
+      rx="4"
+      style="fill: #d0d1fb; stroke: #d0d1fb; stroke-width: 2"
+    /><text
+      x="340.4"
+      y="-79.5"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="14"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Subtopic 1.1</text></g>
+  <g class="node-group" data-id="node_1773326133144_5y6xf4uqg"><rect
+      x="278"
+      y="-27"
+      width="124.8"
+      height="45"
+      rx="4"
+      style="fill: #dcd0fb; stroke: #dcd0fb; stroke-width: 2"
+    /><text
+      x="340.4"
+      y="-4.5"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="14"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Subtopic 1.2</text></g>
+  <g class="node-group" data-id="node_1773326133144_h3w18y8jp"><rect
+      x="110"
+      y="48"
+      width="108"
+      height="54"
+      rx="4"
+      style="fill: #ec4899; stroke: #fad1e5; stroke-width: 2"
+    /><text
+      x="164"
+      y="75"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="20"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Topic 2</text></g>
+  <g class="node-group" data-id="node_1773326133144_3byesnz5y"><rect
+      x="278"
+      y="52.5"
+      width="124.8"
+      height="45"
+      rx="4"
+      style="fill: #fad1e5; stroke: #fad1e5; stroke-width: 2"
+    /><text
+      x="340.4"
+      y="75"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="14"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Subtopic 2.1</text></g>
+  <g class="node-group" data-id="node_1773326133144_r7c0uv4qj"><rect
+      x="-218"
+      y="-27"
+      width="108"
+      height="54"
+      rx="4"
+      style="fill: #8b5cf6; stroke: #ddcffc; stroke-width: 2"
+    /><text
+      x="-164"
+      y="0"
+      text-anchor="middle"
+      dominant-baseline="central"
+      dy=".1em" 
+      font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif"
+      font-size="20"
+      font-weight="normal"
+      fill="#333333"
+      style="pointer-events: none;" 
+    >Topic 3</text></g>
+  </g>
+</svg>

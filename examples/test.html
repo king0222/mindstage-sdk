@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDK Test - Simple</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 1200px;
+        margin: 50px auto;
+        padding: 20px;
+        background: #f5f5f5;
+      }
+      .container {
+        background: white;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      #status {
+        padding: 15px;
+        margin: 20px 0;
+        border-radius: 5px;
+        background: #e3f2fd;
+        color: #1976d2;
+      }
+      #status.error {
+        background: #ffebee;
+        color: #c62828;
+      }
+      #status.success {
+        background: #e8f5e9;
+        color: #2e7d32;
+      }
+      #mindmap {
+        margin-top: 20px;
+        border: 2px solid #e0e0e0;
+        border-radius: 8px;
+        padding: 20px;
+        background: #fafafa;
+        min-height: 400px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      #mindmap svg {
+        max-width: 100%;
+        height: auto;
+        background: white;
+        border-radius: 4px;
+      }
+      button {
+        padding: 10px 20px;
+        background: #667eea;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+      }
+      button:hover {
+        background: #5568d3;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>🧠 Mind Map SDK - Simple Test</h1>
+      <div id="status">Loading SDK...</div>
+      <button onclick="testRender()">Test Render</button>
+      <div id="mindmap"></div>
+    </div>
+
+    <script type="module">
+      const statusDiv = document.getElementById('status');
+      const mindmapDiv = document.getElementById('mindmap');
+
+      // Mock JSON data
+      const mockData = {
+        content: 'My Mind Map',
+        children: [
+          { content: 'Topic 1', children: [{ content: 'Subtopic 1.1' }] },
+          { content: 'Topic 2' },
+          {
+            content: 'Topic 3',
+            children: [{ content: 'Subtopic 3.1' }, { content: 'Subtopic 3.2' }],
+          },
+        ],
+      };
+
+      let renderMindMapFromJSON;
+
+      // Load SDK
+      try {
+        const module = await import('../dist/index.js');
+        renderMindMapFromJSON = module.renderMindMapFromJSON;
+        statusDiv.textContent = '✅ SDK loaded successfully!';
+        statusDiv.className = 'success';
+
+        // Auto render
+        setTimeout(() => {
+          testRender();
+        }, 500);
+      } catch (error) {
+        statusDiv.textContent = '❌ Error loading SDK: ' + error.message;
+        statusDiv.className = 'error';
+        console.error('SDK load error:', error);
+      }
+
+      // Test render function
+      window.testRender = function () {
+        try {
+          statusDiv.textContent = 'Rendering...';
+          statusDiv.className = '';
+
+          if (!renderMindMapFromJSON) {
+            throw new Error('SDK not loaded');
+          }
+
+          const jsonString = JSON.stringify(mockData);
+          const svg = renderMindMapFromJSON(jsonString, {
+            backgroundColor: '#ffffff',
+            scale: 1,
+            padding: 40,
+          });
+
+          mindmapDiv.innerHTML = svg;
+          statusDiv.textContent = '✅ Mind map rendered successfully!';
+          statusDiv.className = 'success';
+        } catch (error) {
+          statusDiv.textContent = '❌ Render error: ' + error.message;
+          statusDiv.className = 'error';
+          mindmapDiv.innerHTML = '<p style="color: red;">Error: ' + error.message + '</p>';
+          console.error('Render error:', error);
+        }
+      };
+    </script>
+  </body>
+</html>

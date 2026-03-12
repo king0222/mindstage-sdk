@@ -1,0 +1,2 @@
+# Allow CORS for ES modules
+Header set Access-Control-Allow-Origin "*"
