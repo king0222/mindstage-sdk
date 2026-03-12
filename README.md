@@ -22,6 +22,9 @@
 
 Whether you're building a web-based editor, a preview tool, or a complex visualization, MindStage SDK provides the battle-tested foundation you need.
 
+
+![MindStage SDK](https://www.mindstage.app/_next/image?url=%2Fimages%2Flanding%2Feditor_preview.webp&w=3840&q=75)
+
 ---
 
 ## ✨ Key Features
