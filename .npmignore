@@ -1,0 +1,38 @@
+# .npmignore - Files to exclude from the npm package
+
+# Source files (compiled to dist/)
+index.ts
+engine/
+models/
+types/
+utils/
+examples/
+tests/
+
+# Configuration and tool files
+.vscode/
+.eslintrc.json
+.prettierrc
+tsconfig.json
+build-bundle.mjs
+.gitignore
+
+# Documentation for contributors
+CODE_OF_CONDUCT.md
+CONTRIBUTING.md
+DEVELOPMENT.md
+SECURITY.md
+
+# Build artifacts and local files
+mindstage-sdk-*.tgz
+*.log
+npm-debug.log*
+
+# Environment and OS files
+.env*
+.DS_Store
+Thumbs.db
+
+# Dependencies
+node_modules/
+package-lock.json

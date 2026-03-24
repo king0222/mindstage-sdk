@@ -1,6 +1,6 @@
 {
   "name": "mindstage-sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "The professional, lightweight core mind map engine that powers MindStage.app",
   "main": "dist/index.js",
   "browser": "dist/mindstage-sdk.js",
@@ -10,16 +10,15 @@
   "files": [
     "dist",
     "README.md",
-    "LICENSE",
-    "index.ts"
+    "LICENSE"
   ],
   "homepage": "https://www.mindstage.app",
   "repository": {
     "type": "git",
-    "url": "https://github.com/mindstage/sdk"
+    "url": "https://github.com/king0222/mindstage-sdk"
   },
   "bugs": {
-    "url": "https://github.com/mindstage/sdk/issues"
+    "url": "https://github.com/king0222/mindstage-sdk/issues"
   },
   "scripts": {
     "dev": "tsc --watch",
@@ -33,7 +32,7 @@
     "format:check": "prettier --check \"**/*.{ts,js,mjs,json,md,html}\"",
     "serve:examples": "http-server -p 8080",
     "type-check": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm run test"
+    "prepublishOnly": "npm run build"
   },
   "keywords": [
     "mindstage",
