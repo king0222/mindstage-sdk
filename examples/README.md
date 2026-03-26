@@ -36,7 +36,7 @@ Ideal for modern web development workflows.
 ### 3. Vue 3 Demo (Vite + ESM Import)
 
 - **Folder**: [vue3-demo](./vue3-demo)
-- **Usage**: Uses `import { MindMapEngine, LayoutEngine, RenderEngine } from 'mindstage-sdk'` and aliases to `dist/index.js` to verify the built output.
+- **Usage**: Uses `import { renderMindMapFromJSON } from 'mindstage-sdk'` and aliases to `dist/index.js` to verify the built output.
 
 ---
 

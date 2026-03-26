@@ -75,6 +75,31 @@ const handle = renderMindMapFromJSON('#map-container', data, {
 
 ---
 
+## 🧾 Mind Map Options (Quick Reference)
+
+Use these options with `renderMindMapFromJSON` for fast integration:
+
+| Option | Type | Default | Description |
+| --- | --- | --- | --- |
+| `backgroundColor` | `string` | `#ffffff` | SVG background color. |
+| `padding` | `number` | `20` | Inner padding around the map. |
+| `scale` | `number` | `1` | Render scale for zooming. |
+| `collapsible` | `boolean` | `true` | Render expand/collapse controls and enable click-to-toggle. |
+| `showConnections` | `boolean` | `true` | Show or hide connecting lines. |
+| `branchPalette` | `string[]` | built-in palette | Custom branch colors for level-1 nodes. |
+| `highlightNodeIds` | `string[]` | `[]` | Highlight specific node IDs. |
+| `selectedNodeIds` | `string[]` | `[]` | Mark specific node IDs as selected. |
+| `layoutOptions.layoutDirection` | `'left' \| 'right' \| 'mixed' \| 'left-right'` | `'left-right'` | Layout direction. |
+| `layoutOptions.spacing` | `{ horizontal: number; vertical: number }` | `{60, 30}` | Horizontal/vertical spacing. |
+| `layoutOptions.nodeSize` | `{ width: number; height: number }` | `{100, 30}` | Base node size. |
+| `layoutOptions.nodeVisualStyle` | `'rectangle' \| 'underline' \| 'circle' \| 'card'` | `'rectangle'` | Node visual style. |
+
+**Return value**
+- `renderMindMapFromJSON(data, options)` returns an SVG string.
+- `renderMindMapFromJSON(container, data, options)` returns a handle with `update(nextData, nextOptions)` and `unmount()`.
+
+---
+
 ## 🎨 Advanced Configuration
 
 The SDK offers granular control via the `MindMapRenderer` class.

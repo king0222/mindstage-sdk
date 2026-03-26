@@ -3,20 +3,33 @@
     <header class="header">
       <div>
         <p class="eyebrow">MindStage SDK · Vue 3</p>
-        <h1>脑图渲染验证 Demo</h1>
+        <h1>Mind Map Rendering Demo</h1>
       </div>
       <p class="subtitle">
-        通过 <code>import { renderMindMapFromJSON } from 'mindstage-sdk'</code>
-        直接引用项目打包产物，一行生成 SVG 脑图。
+        Use <code>import { renderMindMapFromJSON } from 'mindstage-sdk'</code>
+        to mount the built SDK output and render an SVG mind map in one call.
       </p>
     </header>
 
     <section class="card">
       <div class="toolbar">
-        <button class="btn" @click="regenerate">重新生成示例</button>
+        <button class="btn" @click="regenerate">Regenerate Demo</button>
+        <div class="zoom">
+          <button class="icon-btn" @click="zoomOut" aria-label="Zoom out">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 12h10" />
+            </svg>
+          </button>
+          <span class="zoom-label">{{ Math.round(scale * 100) }}%</span>
+          <button class="icon-btn" @click="zoomIn" aria-label="Zoom in">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 7v10M7 12h10" />
+            </svg>
+          </button>
+        </div>
         <label class="toggle">
           <input v-model="collapsible" type="checkbox" />
-          <span>支持展开/收起</span>
+          <span>Enable Collapse</span>
         </label>
         <span class="status" :class="status.type">{{ status.text }}</span>
       </div>
@@ -24,7 +37,7 @@
     </section>
 
     <footer class="footer">
-      当前示例用于验证 SDK 打包产物是否可用，可直接复制这套引入方式给用户。
+      This demo validates the packaged SDK output and can be shared directly as user-facing guidance.
     </footer>
   </div>
 </template>
@@ -33,10 +46,11 @@
 import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
 import { renderMindMapFromJSON } from 'mindstage-sdk';
 
-const status = ref({ type: 'idle', text: '等待渲染' });
+const status = ref({ type: 'idle', text: 'Idle' });
 const collapsible = ref(true);
 const canvasRef = ref(null);
 let mountHandle = null;
+const scale = ref(1);
 
 const createNode = (id, content, children = []) => ({
   id,
@@ -47,26 +61,26 @@ const createNode = (id, content, children = []) => ({
 
 const buildMindMap = () =>
   createNode('root', 'MindStage SDK', [
-    createNode('usage', '快速接入', [
-      createNode('usage-install', 'npm 安装'),
+    createNode('usage', 'Quick Start', [
+      createNode('usage-install', 'npm install'),
       createNode('usage-import', 'ESM import'),
-      createNode('usage-vue', 'Vue 3 组件'),
+      createNode('usage-vue', 'Vue 3 demo'),
     ]),
-    createNode('render', '渲染引擎', [
-      createNode('render-layout', '自动布局'),
-      createNode('render-svg', 'SVG 输出'),
-      createNode('render-style', '样式配置'),
+    createNode('render', 'Rendering', [
+      createNode('render-layout', 'Auto layout'),
+      createNode('render-svg', 'SVG output'),
+      createNode('render-style', 'Style options'),
     ]),
-    createNode('export', '导出能力', [
+    createNode('export', 'Export', [
       createNode('export-svg', 'SVG / PNG'),
-      createNode('export-json', 'JSON 互转'),
+      createNode('export-json', 'JSON sync'),
     ]),
   ]);
 
 const mindMapData = ref(buildMindMap());
 
 const renderMindMap = () => {
-  status.value = { type: 'loading', text: '正在生成脑图…' };
+  status.value = { type: 'loading', text: 'Rendering…' };
 
   try {
     if (!mountHandle && canvasRef.value) {
@@ -74,6 +88,7 @@ const renderMindMap = () => {
         backgroundColor: '#f8f4ee',
         padding: 32,
         collapsible: collapsible.value,
+        scale: scale.value,
         layoutOptions: {
           layoutDirection: 'left-right',
           spacing: { horizontal: 70, vertical: 28 },
@@ -82,19 +97,30 @@ const renderMindMap = () => {
     } else if (mountHandle) {
       mountHandle.update(mindMapData.value, {
         collapsible: collapsible.value,
+        scale: scale.value,
       });
     }
-    status.value = { type: 'success', text: '渲染完成' };
+    status.value = { type: 'success', text: 'Rendered' };
   } catch (error) {
     status.value = {
       type: 'error',
-      text: error instanceof Error ? error.message : '渲染失败',
+      text: error instanceof Error ? error.message : 'Render failed',
     };
   }
 };
 
 const regenerate = () => {
   mindMapData.value = buildMindMap();
+  renderMindMap();
+};
+
+const zoomIn = () => {
+  scale.value = Math.min(2.5, Math.round((scale.value + 0.1) * 10) / 10);
+  renderMindMap();
+};
+
+const zoomOut = () => {
+  scale.value = Math.max(0.4, Math.round((scale.value - 0.1) * 10) / 10);
   renderMindMap();
 };
 

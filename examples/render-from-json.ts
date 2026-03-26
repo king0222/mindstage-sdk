@@ -1,6 +1,5 @@
 /**
  * Render from JSON Example
- * 从 JSON 渲染示例
  *
  * This example demonstrates how to:
  * - Render mind map from JSON string

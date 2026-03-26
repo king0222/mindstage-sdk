@@ -1,6 +1,6 @@
 {
   "name": "mindstage-sdk",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "The professional, lightweight core mind map engine that powers MindStage.app",
   "main": "dist/index.js",
   "browser": "dist/mindstage-sdk.js",
