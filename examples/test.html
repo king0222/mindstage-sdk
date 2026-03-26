@@ -95,6 +95,7 @@
       };
 
       let renderMindMapFromJSON;
+      let mountHandle = null;
 
       // Load SDK
       try {
@@ -124,15 +125,25 @@
           }
 
           const jsonString = JSON.stringify(mockData);
-          const svg = renderMindMapFromJSON(jsonString, {
-            backgroundColor: '#ffffff',
-            scale: 1,
-            padding: 40,
-          });
+          if (!mountHandle) {
+            mountHandle = renderMindMapFromJSON(mindmapDiv, jsonString, {
+              backgroundColor: '#ffffff',
+              scale: 1,
+              padding: 40,
+              collapsible: true,
+            });
+          } else {
+            mountHandle.update(jsonString, {
+              backgroundColor: '#ffffff',
+              scale: 1,
+              padding: 40,
+              collapsible: true,
+            });
+          }
 
-          mindmapDiv.innerHTML = svg;
           statusDiv.textContent = '✅ Mind map rendered successfully!';
           statusDiv.className = 'success';
+          return;
         } catch (error) {
           statusDiv.textContent = '❌ Render error: ' + error.message;
           statusDiv.className = 'error';

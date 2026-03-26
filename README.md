@@ -63,13 +63,14 @@ const data = {
   ],
 };
 
-const svg = renderMindMapFromJSON(data, {
+const handle = renderMindMapFromJSON('#map-container', data, {
   backgroundColor: '#ffffff',
-  padding: 60
+  padding: 60,
+  collapsible: true
 });
 
-// Mount to DOM
-document.getElementById('map-container').innerHTML = svg;
+// Zero interaction code: click nodes to collapse/expand automatically.
+// Optional: handle.update(nextData, nextOptions); handle.unmount();
 ```
 
 ---

@@ -116,7 +116,9 @@ const json = JSON.stringify({
   },
 });
 
-const svg = renderMindMapFromJSON(json);
+renderMindMapFromJSON('#map', json, {
+  collapsible: true
+});
 ```
 
 ### Example 2: Simplified Format
@@ -127,7 +129,7 @@ const simpleJson = JSON.stringify({
   children: [{ text: 'Child 1' }, { text: 'Child 2' }],
 });
 
-const svg = renderMindMapFromJSON(simpleJson);
+renderMindMapFromJSON('#map', simpleJson);
 ```
 
 ### Example 3: With Custom Options

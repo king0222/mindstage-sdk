@@ -23,6 +23,11 @@ export interface RenderFromJSONOptions extends Partial<RenderOptions> {
   selectedNodeIds?: string[];
 }
 
+export interface MountFromJSONResult {
+  unmount: () => void;
+  update: (nextData?: string | any, nextOptions?: RenderFromJSONOptions) => void;
+}
+
 export interface RenderFromJSONResult {
   success: boolean;
   svg?: string;
@@ -320,23 +325,139 @@ export class MindMapRenderer {
 }
 
 /**
- * Convenience function: Render mind map from JSON string
- * 便捷函数：从 JSON 字符串渲染脑图
+ * Convenience function: Render mind map from JSON or mount to container
+ * 便捷函数：从 JSON 渲染脑图，或直接挂载到容器
  *
- * @param json JSON string
- * @param options Render options
- * @returns SVG string or error message
+ * @param containerOrData HTMLElement | selector | JSON data
+ * @param dataOrOptions JSON data (when mounting) or render options
+ * @param options Render options (when mounting)
+ * @returns SVG string or mount handle
  */
+export function renderMindMapFromJSON(data: string | any, options?: RenderFromJSONOptions): string;
 export function renderMindMapFromJSON(
+  container: HTMLElement | string,
   data: string | any,
-  options: RenderFromJSONOptions = {}
-): string {
-  const renderer = new MindMapRenderer();
-  const result = renderer.renderFromJSON(data, options);
+  options?: RenderFromJSONOptions
+): MountFromJSONResult;
+export function renderMindMapFromJSON(
+  containerOrData: HTMLElement | string | any,
+  dataOrOptions?: string | any | RenderFromJSONOptions,
+  maybeOptions: RenderFromJSONOptions = {}
+): string | MountFromJSONResult {
+  const isHTMLElement =
+    typeof HTMLElement !== 'undefined' && containerOrData instanceof HTMLElement;
+  const hasDocument = typeof document !== 'undefined';
+  const optionKeys = [
+    'layoutOptions',
+    'backgroundColor',
+    'padding',
+    'scale',
+    'showConnections',
+    'highlightNodeIds',
+    'selectedNodeIds',
+    'branchPalette',
+    'collapsible',
+    'validate',
+  ];
+  const dataKeys = ['content', 'children', 'root', 'metadata', 'text'];
 
-  if (!result.success) {
-    throw new Error(result.error || 'Failed to render mind map');
+  const isOptionsObject = (value: any): value is RenderFromJSONOptions =>
+    !!value &&
+    typeof value === 'object' &&
+    optionKeys.some((key) => key in value) &&
+    !dataKeys.some((key) => key in value);
+
+  const canSelect =
+    typeof containerOrData === 'string' &&
+    hasDocument &&
+    (() => {
+      try {
+        return !!document.querySelector(containerOrData);
+      } catch {
+        return false;
+      }
+    })();
+
+  const hasThirdArg = arguments.length >= 3;
+  const isMountCall =
+    isHTMLElement ||
+    (typeof containerOrData === 'string' &&
+      ((hasThirdArg && !isOptionsObject(dataOrOptions)) || canSelect));
+
+  if (!isMountCall) {
+    const renderer = new MindMapRenderer();
+    const result = renderer.renderFromJSON(containerOrData, (dataOrOptions as RenderFromJSONOptions) || {});
+
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to render mind map');
+    }
+
+    return result.svg || '';
   }
 
-  return result.svg || '';
+  const container = containerOrData as HTMLElement | string;
+  const data = dataOrOptions as string | any;
+  const options = maybeOptions;
+
+  const el =
+    typeof container === 'string'
+      ? (document.querySelector(container) as HTMLElement | null)
+      : container;
+
+  if (!el) {
+    throw new Error('Container element not found');
+  }
+
+  let currentData = typeof data === 'string' ? JSON.parse(data) : data;
+  let currentOptions = { ...options };
+
+  const toggleNodeCollapse = (node: any, targetId: string): boolean => {
+    if (node.id === targetId) {
+      node.meta = node.meta || {};
+      node.meta.collapsed = !node.meta.collapsed;
+      return true;
+    }
+    if (!node.children) return false;
+    return node.children.some((child: any) => toggleNodeCollapse(child, targetId));
+  };
+
+  const render = () => {
+    const renderer = new MindMapRenderer();
+    const result = renderer.renderFromJSON(currentData, currentOptions);
+    if (!result.success) {
+      throw new Error(result.error || 'Failed to render mind map');
+    }
+    el.innerHTML = result.svg || '';
+  };
+
+  const handleClick = (event: Event) => {
+    if (currentOptions.collapsible === false) return;
+    const target = event.target as HTMLElement | null;
+    if (!target || typeof target.closest !== 'function') return;
+    const button = target.closest('.collapse-btn') as HTMLElement | null;
+    if (!button) return;
+    const nodeId = button.getAttribute('data-id');
+    if (!nodeId) return;
+    toggleNodeCollapse(currentData, nodeId);
+    render();
+  };
+
+  el.addEventListener('click', handleClick);
+  render();
+
+  return {
+    unmount: () => {
+      el.removeEventListener('click', handleClick);
+      el.innerHTML = '';
+    },
+    update: (nextData?: string | any, nextOptions?: RenderFromJSONOptions) => {
+      if (nextData !== undefined) {
+        currentData = typeof nextData === 'string' ? JSON.parse(nextData) : nextData;
+      }
+      if (nextOptions) {
+        currentOptions = { ...currentOptions, ...nextOptions };
+      }
+      render();
+    },
+  };
 }

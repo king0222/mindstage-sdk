@@ -33,6 +33,11 @@ Ideal for modern web development workflows.
 - **File**: [index.html](./index.html)
 - **Usage**: Imports directly from `dist/index.js`.
 
+### 3. Vue 3 Demo (Vite + ESM Import)
+
+- **Folder**: [vue3-demo](./vue3-demo)
+- **Usage**: Uses `import { MindMapEngine, LayoutEngine, RenderEngine } from 'mindstage-sdk'` and aliases to `dist/index.js` to verify the built output.
+
 ---
 
 ## 🏃 How to Run

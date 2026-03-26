@@ -132,24 +132,19 @@ if (result3.success) {
   console.error('❌ Error:', result3.error);
 }
 
-// Example 4: Using convenience function
+// Example 4: Using convenience function (mount in browser)
 console.log('\n=== Example 4: Using Convenience Function ===');
 
 try {
-  const svg = renderMindMapFromJSON(simplifiedNodeJSON, {
-    backgroundColor: '#ffffff',
-    padding: 40,
-  });
-  console.log('✅ Successfully rendered using convenience function');
-  console.log(`SVG length: ${svg.length} characters`);
-
-  // Save to file (in Node.js environment)
-  if (typeof require !== 'undefined') {
-    const fs = require('fs');
-    const path = require('path');
-    const outputPath = path.join(__dirname, 'output-from-json.svg');
-    fs.writeFileSync(outputPath, svg, 'utf-8');
-    console.log(`SVG saved to: ${outputPath}`);
+  if (typeof document !== 'undefined') {
+    renderMindMapFromJSON('#map-container', simplifiedNodeJSON, {
+      backgroundColor: '#ffffff',
+      padding: 40,
+      collapsible: true,
+    });
+    console.log('✅ Successfully mounted using convenience function');
+  } else {
+    console.log('ℹ️  Convenience mount is for browser usage. Use MindMapRenderer in Node.js.');
   }
 } catch (error) {
   console.error('❌ Error:', error instanceof Error ? error.message : 'Unknown error');

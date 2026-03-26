@@ -437,6 +437,7 @@
     // Current app state
     let currentScale = 1;
     let mindMapData = null;
+    let mountHandle = null;
     let customPalette = [
       '#6366f1', '#8b5cf6', '#ec4899', '#f43f5e', '#ef4444',
       '#f59e0b', '#eab308', '#84cc16', '#22c55e', '#10b981'
@@ -468,15 +469,6 @@
       initPaletteUI();
       loadExample('business');
 
-      // Setup event delegation for SVG collapse buttons
-      const container = document.getElementById('mindmapContainer');
-      container.addEventListener('click', (e) => {
-        const btn = e.target.closest('.collapse-btn');
-        if (btn) {
-          const nodeId = btn.getAttribute('data-id');
-          toggleNodeCollapse(nodeId);
-        }
-      });
     });
 
     function initPaletteUI() {
@@ -527,16 +519,30 @@
         ensureIds(mindMapData.root || mindMapData);
         document.getElementById('jsonInput').value = JSON.stringify(mindMapData, null, 2);
 
-        const svg = renderMindMapFromJSON(mindMapData, {
+        if (!mountHandle) {
+          mountHandle = renderMindMapFromJSON(container, mindMapData, {
+            backgroundColor: '#ffffff',
+            scale: currentScale,
+            padding: 60,
+            branchPalette: customPalette,
+            collapsible: true,
+            layoutOptions: {
+              layoutDirection: direction
+            }
+          });
+          return;
+        }
+
+        mountHandle.update(mindMapData, {
           backgroundColor: '#ffffff',
           scale: currentScale,
           padding: 60,
           branchPalette: customPalette,
+          collapsible: true,
           layoutOptions: {
             layoutDirection: direction
           }
         });
-        container.innerHTML = svg;
       } catch (e) {
         showStatus('Render failed: ' + e.message, 'error');
         console.error(e);
@@ -546,35 +552,6 @@
     function ensureIds(node) {
       if (!node.id) node.id = 'node_' + Math.random().toString(36).substr(2, 9);
       if (node.children) node.children.forEach(ensureIds);
-    }
-
-    // Node Interactivity Logic
-    function toggleNodeCollapse(nodeId) {
-      if (!mindMapData) return;
-
-      let found = false;
-      const traverse = (node) => {
-        if (node.id === nodeId) {
-          node.meta = node.meta || {};
-          node.meta.collapsed = !node.meta.collapsed;
-          found = true;
-          return true;
-        }
-        if (node.children) {
-          for (const child of node.children) {
-            if (traverse(child)) return true;
-          }
-        }
-        return false;
-      };
-
-      traverse(mindMapData.root || mindMapData);
-
-      if (found) {
-        document.getElementById('jsonInput').value = JSON.stringify(mindMapData, null, 2);
-        renderMindMap();
-        showStatus('Toggled node collapse');
-      }
     }
 
     function zoomIn() {

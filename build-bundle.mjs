@@ -56,7 +56,7 @@ async function build() {
     console.log('  <script src="dist/mindstage-sdk.js"></script>');
     console.log('  <script>');
     console.log('    const { renderMindMapFromJSON } = MindStageSDK;');
-    console.log('    // Use renderMindMapFromJSON...');
+    console.log('    // renderMindMapFromJSON("#map", data, { collapsible: true })');
     console.log('  </script>');
   } catch (error) {
     console.error('❌ Build failed:', error);

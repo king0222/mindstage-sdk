@@ -88,4 +88,8 @@ export {
 
 // Render utilities
 export { MindMapRenderer, renderMindMapFromJSON } from './utils/mindMapRenderer';
-export type { RenderFromJSONOptions, RenderFromJSONResult } from './utils/mindMapRenderer';
+export type {
+  RenderFromJSONOptions,
+  RenderFromJSONResult,
+  MountFromJSONResult,
+} from './utils/mindMapRenderer';

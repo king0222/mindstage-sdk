@@ -15,6 +15,7 @@ export interface RenderOptions {
   backgroundColor?: string;
   padding?: number;
   branchPalette?: string[]; // 自定义分支颜色调色板
+  collapsible?: boolean; // 是否渲染展开/收起按钮
 }
 
 export interface IRenderEngine {
@@ -247,7 +248,7 @@ export class RenderEngine implements IRenderEngine {
     const content = this.escapeXml(contentText);
 
     // 渲染折叠/展开按钮
-    const collapseButton = this.renderCollapseButton(node);
+    const collapseButton = this.renderCollapseButton(node, options);
     // 增大圆角，使其看起来更现代
     const rx = node.level === 0 ? 12 : 8;
 
@@ -289,7 +290,10 @@ export class RenderEngine implements IRenderEngine {
   /**
    * 渲染折叠/展开按钮
    */
-  private renderCollapseButton(node: NodeWithPosition): string {
+  private renderCollapseButton(node: NodeWithPosition, options: RenderOptions): string {
+    if (options.collapsible === false) {
+      return '';
+    }
     // 只有有子节点的节点才显示折叠按钮
     if (!node.children || node.children.length === 0) {
       return '';
